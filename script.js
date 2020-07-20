@@ -1,44 +1,37 @@
 const addOrder = document.querySelector('.add-order');
 const outerModal = document.querySelector('.outer-modal');
 const innerModal = document.querySelector('.inner-modal');
-const submitButton = document.querySelector(".submitOrder");
-const orderedList = document.querySelector(".order-list");
+const orderedList = document.querySelector(".order");
 
+//Open modal to show the form to the user
 const openModal = e => {
     outerModal.classList.add('open');
-    
-    const card = event.target.closest('.order-list');
-	const { dish, size, amount} = card.dataset;
-	const myHTML = `
-            <img src="${img}"/>
-            <p>Order : ${dish} ${size} ${amount}</p>
+};
+
+const openListModal = e => {
+    outerModal.classList.add("openDetail");
+    const listDetail = event.target.closest('.order');
+    const title = listDetail.querySelector('span').textContent;
+    const { dish, size, amount} = listDetail.dataset;
+
+    //Put it in modal
+    const myHTML = `
+        <span>${title}</span>
+        <img src="${img}"/>
+        <p>Order : ${dish} ${size} ${amount}</p>
     `;
-	orderedList.innerHTML = myHTML;
+    innerModal.innerHTML = myHTML;
 };
 
-
-const handleClick = e => {
-    const isOutside = !e.target.closest('.inner-modal');
-    if (isOutside) {
-        outerModal.classList.remove('open');
-    }
-};
-
-const handleEscape = e => {
-    if (e.key === 'Escape') {
-        outerModal.classList.remove('open');
-    }
-};
-
-
-window.addEventListener('keydown', handleEscape);
-outerModal.addEventListener('click', handleClick);
+//Adding eventListener to listen for click
 addOrder.addEventListener('click', openModal);
-submitButton.addEventListener("click", orderedList);
 
 //event delegation
-const handleModalButton = event => {
+window.addEventListener('click', (e) => {
 	if (event.target.matches('button.submitOrder')) {
-	}
-};
-window.addEventListener('click', handleModalButton);
+        event.target(".addOrder");
+    }
+    if(event.target.matches("button.details")){
+        return;
+    }
+});
