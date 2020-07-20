@@ -1,37 +1,44 @@
 const addOrder = document.querySelector('.add-order');
 const outerModal = document.querySelector('.outer-modal');
 const innerModal = document.querySelector('.inner-modal');
-const list = document.querySelector(".order");
+
 
 //Open modal to show the form to the user
 const openModal = e => {
     outerModal.classList.add('open');
 };
 
-const orderedList = event => {
-    outerModal.classList.add("openDetail");
-    const listDetail = event.target.closest('.order');
-    const title = listDetail.querySelector('span').textContent;
-    const { dish, size, amount} = listDetail.dataset;
 
-    //Put it in modal
+const orderedList = (e) => {
+    const title = form.title.value;
+    const {dish, size, amount} = form.dataset;
+
+    //create html
     const myHTML = `
-        <span>${title}</span>
-        <p>Order : ${dish} ${size} ${amount}</p>
+    <div class= "order-list">
+    <span class= "title">${title}</span>
+    <div class= "order">Order: ${dish} ${size} ${amount}</div>
+    </div>
     `;
     innerModal.innerHTML = myHTML;
 };
 
-//Adding eventListener to listen for click
+
+//Adding eventListener to show the form
 addOrder.addEventListener('click', openModal);
-list.addEventListener("click", orderedList);
+
 
 //event delegation
-window.addEventListener('click', (event) => {
-	if (event.target.matches('button.submitOrder')) {
-        event.target(".order");
+window.addEventListener('submit', (event) => {
+    if(event.target.matches("form")) {
+        const form = event.target;
+        form.title.value;
+        form.dish.value;
+        form.size.value;
+        form.amount.value;
     }
-    if(event.target.matches("button.details")){
-        return listDetail;
+    if(event.target.matches('.details')) {
+        return(orderedList);
     }
 });
+
