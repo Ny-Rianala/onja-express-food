@@ -69,10 +69,10 @@ const handleEscapeKey = event => {
     if (event.key === 'Escape') {
         closeModal();
     }
-};
+    };
 
 
-const handleSubmit = event => {
+    const handleSubmit = event => {
     event.preventDefault();
     if (event.target.matches("form")) {
         const form = event.target;
