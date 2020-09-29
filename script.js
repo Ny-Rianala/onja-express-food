@@ -89,7 +89,6 @@ const handleEscapeKey = event => {
         orderedList.innerHTML += myHTML;
         closeModal();
         form.reset();
-    
     }
 };
 
